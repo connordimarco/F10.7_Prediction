@@ -1,0 +1,34 @@
+#PBS -N f107_cell
+#PBS -l select=1:ncpus=512:model=tur_ath
+#PBS -l walltime=01:00:00
+#PBS -q normal
+#PBS -W group_list=s3007
+#PBS -j oe
+#PBS -o /nobackupp28/cdimarco/F10.7_Prediction/experiments/horizon_matrix/logs/
+#PBS -m be
+#PBS -M cdimarco@umich.edu
+# Athena template, adapted from LAUREN's extreme_matrix run_cell.pbs.
+# PREPARED BUT NOT YET IN USE: the matrix currently runs locally on the Mac
+# Studio (dataset is ~MB scale). Before first use on Athena: build a venv at
+# the path below, sync the project, and mkdir logs/. Owner submits all jobs.
+# Submit from the horizon_matrix dir:  qsub -v CELL=F107_E01_xxx -N E01 shared/run_cell.pbs
+set -u
+cd $PBS_O_WORKDIR
+# cap threads: 512 hw threads thrash LightGBM (LAUREN lesson)
+export OMP_NUM_THREADS=64
+export OPENBLAS_NUM_THREADS=64
+source /nobackupp28/cdimarco/F10.7_Prediction/env/bin/activate
+mkdir -p "${CELL}/out"
+# redirect inside the script (PBS relative -o loses logs)
+exec > "${CELL}/out/train.log" 2>&1
+if [ -f "${CELL}/out/scorecard.json" ]; then
+    echo "scorecard exists, skipping ${CELL}"
+    exit 0
+fi
+echo "=== ${CELL} start $(date) on $(hostname) ==="
+if python "${CELL}/train_cell.py"; then
+    python shared/score_cell.py "${CELL}"
+else
+    echo "TRAIN FAILED for ${CELL} — no scorecard written"
+fi
+echo "=== ${CELL} DONE $(date) ==="
