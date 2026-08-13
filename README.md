@@ -7,5 +7,4 @@ summaries.
 
 - `scripts/` — build `data/daily.csv` from the raw archives (`data/SOURCES.md`)
 - `experiments/horizon_matrix/` — one-change-per-cell experiment harness;
-  design and verdicts in `MATRIX.md`, results in `LEADERBOARD.md`
-- Full conventions and status: `CLAUDE.md`
+  design and verdicts in `MATRIX.md`, results in `LEADERBOARD.
