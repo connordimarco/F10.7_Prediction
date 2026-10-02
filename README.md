@@ -7,4 +7,6 @@ summaries.
 
 - `scripts/` — build `data/daily.csv` from the raw archives (`data/SOURCES.md`)
 - `experiments/horizon_matrix/` — one-change-per-cell experiment harness;
-  design and verdicts in `MATRIX.md`, results in `LEADERBOARD.
+  design and verdicts in `MATRIX.md`, results in `LEADERBOARD.md`
+- `realtime/` — the frozen E24 model run daily (1–30 day F10.7 + band); issued
+  forecasts archived in `realtime/forecasts/`, details in `realtime/README.md`
