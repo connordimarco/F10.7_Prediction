@@ -3,3 +3,4 @@ env/
 CLAUDE.md
 .DS_Store
 __pycache__/
+archive/
