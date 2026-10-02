@@ -66,17 +66,32 @@ def targets(df, orig):
     return np.stack([tgt[p + 1 : p + 1 + HORIZON] for p in pos])
 
 
-def load_models():
-    import joblib
+def load_models(fmt=None):
+    """Models in two interchangeable formats: lead_NN.joblib (the sklearn
+    wrapper, needs the training-time lightgbm/sklearn/python) or lead_NN.txt
+    (plain LightGBM text boosters saved at best_iteration, loadable by any
+    lightgbm). fmt = "joblib" | "txt" | None (env E24_MODEL_FORMAT, else
+    joblib with txt fallback)."""
+    import lightgbm as lgb
 
     meta = json.load(open(os.path.join(MODELS, "meta.json")))
     assert meta["feature_names"] == NAMES, "feature layout changed since training"
-    return [joblib.load(os.path.join(MODELS, f"lead_{h:02d}.joblib")) for h in range(1, HORIZON + 1)], meta
+    fmt = fmt or os.environ.get("E24_MODEL_FORMAT")
+    if fmt in (None, "joblib"):
+        try:
+            import joblib
+
+            return [joblib.load(os.path.join(MODELS, f"lead_{h:02d}.joblib")) for h in range(1, HORIZON + 1)], meta
+        except Exception as e:  # version mismatch etc.
+            if fmt == "joblib":
+                raise
+            print(f"joblib models unusable ({type(e).__name__}); using text boosters", file=sys.stderr)
+    return [lgb.Booster(model_file=os.path.join(MODELS, f"lead_{h:02d}.txt")) for h in range(1, HORIZON + 1)], meta
 
 
 def predict_adj(models, X, env):
     """-> (n, 30) adjusted-flux predictions for feature rows X with envelope env (n,)."""
-    P = np.stack([m.predict(X, num_iteration=m.best_iteration_) for m in models], axis=1)
+    P = np.stack([m.predict(X, num_iteration=getattr(m, "best_iteration_", None)) for m in models], axis=1)
     return P * np.asarray(env)[:, None]
 
 

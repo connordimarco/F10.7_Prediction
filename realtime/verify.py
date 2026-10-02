@@ -6,6 +6,7 @@
  2. The standalone feature builder (what predict.py uses) vs the matrix's
     build_samples on 50 random test origins: identical rows, identical
     predictions.
+ 4. Text-booster models (portable) agree with the joblib ones.
  3. Band sanity: coverage of the q05-q95 / q10-q90 bands on the calibration
     era (in-sample, so ~0.90 / ~0.80 by construction).
 """
@@ -47,6 +48,12 @@ def main():
     dd = np.abs(P1 - P0).max()
     print(f"2. standalone feature rows == build_samples rows: {same}; predict path vs batch: max |diff| {dd:.3f} sfu")
     ok &= same and dd <= 0.011
+
+    txt, _ = e24.load_models("txt")
+    Pt = e24.to_obs(e24.predict_adj(txt, X1, env), ote[pick])
+    dt_ = np.abs(Pt - P1).max()
+    print(f"4. text boosters vs joblib models: max |diff| {dt_:.4f} sfu")
+    ok &= dt_ <= 0.011
 
     bp = os.path.join(e24.MODELS, "band.json")
     if os.path.exists(bp):

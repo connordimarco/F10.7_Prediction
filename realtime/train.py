@@ -47,6 +47,7 @@ def main():
               callbacks=[lgb.early_stopping(150, verbose=False)])
         pred[:, h] = m.predict(Xte, num_iteration=m.best_iteration_) * dte
         joblib.dump(m, os.path.join(e24.MODELS, f"lead_{h + 1:02d}.joblib"))
+        m.booster_.save_model(os.path.join(e24.MODELS, f"lead_{h + 1:02d}.txt"), num_iteration=m.best_iteration_)
         best.append(int(m.best_iteration_))
         print(f"lead {h + 1:2d}: best_iter {m.best_iteration_:4d}  val_rmse {m.best_score_['valid_0']['rmse']:.4f}  [{time.time() - t0:.0f}s]", flush=True)
 
@@ -62,7 +63,7 @@ def main():
     )
     json.dump(meta, open(os.path.join(e24.MODELS, "meta.json"), "w"), indent=1)
     e24.long_frame(ote, e24.to_obs(pred, ote)).to_csv(os.path.join(e24.OUT, "predictions_test.csv"), index=False)
-    print(f"saved 30 models + meta.json to {e24.MODELS}; test predictions for {len(ote)} origins to out/")
+    print(f"saved 30 models (.joblib + .txt) + meta.json to {e24.MODELS}; test predictions for {len(ote)} origins to out/")
 
 
 if __name__ == "__main__":
