@@ -4,3 +4,7 @@ CLAUDE.md
 .DS_Store
 __pycache__/
 archive/
+deploy/web/
+deploy/local.env
+deploy/daily.log
+deploy/.lock
