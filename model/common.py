@@ -22,7 +22,7 @@ import numpy as np
 import pandas as pd
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DATA = os.path.normpath(os.path.join(HERE, "..", "..", "..", "data"))
+DATA = os.path.normpath(os.path.join(HERE, "..", "data"))
 
 HIST = 60
 HORIZON = 30

@@ -1,13 +1,13 @@
 """E24 as a frozen realtime model: shared pieces for train / calibrate / predict.
 
-E24 (experiments/horizon_matrix/F107_E24_ratio_deep) is one LightGBM per lead
+E24 (model/train_e24.py) is one LightGBM per lead
 (1..30 days) with cfg-44 params, trained on origins 1947-2021 (val 2022-2023
 for early stopping), features = 60-day windows of 26 daily series
 (flare-robust adjusted F10.7, SSN, 10 SRS active-region aggregates, 14 far-side
 aggregates; the AR/far-side families are optional-NaN), and target
     y(t+h) = f107_adj_rob(t+h) / env81(t),   env81 = trailing 81-day mean,
 multiplied back by env81(t) and converted to observed flux at predict time.
-Everything here reuses the matrix's shared code so the live feature row is
+Everything here reuses model/common.py and model/single_model.py so the live feature row is
 built exactly as the training rows were.
 """
 
@@ -20,7 +20,7 @@ import pandas as pd
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, ".."))
-sys.path.insert(0, os.path.join(ROOT, "experiments", "horizon_matrix", "shared"))
+sys.path.insert(0, os.path.join(ROOT, "model"))
 import common  # noqa: E402
 from single_model import CFG44  # noqa: E402
 

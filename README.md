@@ -12,9 +12,12 @@ stopped on 2022–23, scored on 2024 onward (cycle-25 maximum): pooled RMSE
 - `scripts/` — rebuild `data/` from the raw archives (`fetch_raw.sh` →
   `parse_srs.py` → `build_dataset.py`; `fetch_farside.py` →
   `build_farside_daily.py`). Endpoints and archives: `data/SOURCES.md`.
-- `experiments/horizon_matrix/` — the model (`F107_E24_ratio_deep`), the
-  shared loader/trainer/scorer it uses, and the SWPC benchmark
-  (`benchmarks/swpc_27day.py`, `plots/swpc_vs_ours_by_lead.png`).
+- `model/` — the model: `train_e24.py` (one LightGBM per lead via
+  `single_model.py`), `common.py` (data loading, windows, splits),
+  `score_cell.py` (the scorer); test predictions and scorecard in `out/`.
+  Reproduce: `env/bin/python model/train_e24.py && env/bin/python model/score_cell.py model`.
+- `benchmarks/` — SWPC 27-day outlook comparison (`swpc_27day.py data/swpc_prf model`)
+  and its per-lead plot.
 - `realtime/` — the frozen model run daily: saved boosters, calibrated band,
   data refresh, predictor, verifier; issued forecasts archived in
   `realtime/forecasts/`. See `realtime/README.md`.

@@ -1,10 +1,10 @@
 # realtime — daily E24 F10.7 forecast (1–30 days)
 
-The frozen single-LightGBM model `F107_E24_ratio_deep` run as an operational
+The frozen single-LightGBM model E24 (`model/train_e24.py`) run as an operational
 forecast. One file per issued forecast lands in `forecasts/`; that archive is
 the record of what was predicted when (CCMC Swift re-entry challenge entry).
 
-## Model (unchanged from the experiment cell)
+## Model (unchanged from `model/`)
 
 - 30 LightGBM regressors, one per lead day, cfg-44 parameters.
 - Inputs: the last 60 days of 26 daily series — flare-robust adjusted F10.7,
@@ -29,7 +29,7 @@ the record of what was predicted when (CCMC Swift re-entry challenge entry).
 | `refresh_data.sh` | daily: re-pull LISIRD/SILSO/SRS/far-side, rebuild `data/*.csv`, bridge the tail |
 | `bridge_tail.py` | fills the last days: SSN from SILSO EISN, F10.7 from SWPC if LISIRD lags |
 | `predict.py` | issue the forecast for the last usable origin (or a given date) |
-| `verify.py` | retrained == cell predictions; live feature rows == training rows; band coverage |
+| `verify.py` | retrained == `model/out` predictions; live feature rows == training rows; band coverage |
 
 ## Daily run
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Checks that the realtime path reproduces the E24 experiment cell.
 
- 1. out/predictions_test.csv (written by train.py) vs the cell's
+ 1. out/predictions_test.csv (written by train.py) vs model/train_e24.py's
     out/predictions.csv on the canonical test origins: must match to 0.01 sfu.
  2. The standalone feature builder (what predict.py uses) vs the matrix's
     build_samples on 50 random test origins: identical rows, identical
@@ -20,7 +20,7 @@ import pandas as pd
 import e24
 from e24 import common
 
-CELL = os.path.join(e24.ROOT, "experiments", "horizon_matrix", "F107_E24_ratio_deep", "out", "predictions.csv")
+CELL = os.path.join(e24.ROOT, "model", "out", "predictions.csv")
 
 
 def main():

@@ -8,7 +8,7 @@ knows data through the day before). Apples to apples: our forecast from
 origin t = issue_date - 1 at lead h corresponds to SWPC's value for
 issue_date + h - 1 (h = 1..27).
 
-Usage: swpc_27day.py <pdf_dir> <cell_dir> [<cell_dir> ...]
+Usage: swpc_27day.py <pdf_dir> <model_dir> [<model_dir> ...]   (e.g. data/swpc_prf model)
 Prints RMSE by lead band for SWPC, persistence and each cell on the common
 (origin, target) pairs, plus the parse log. Writes <pdf_dir>/swpc_27day.csv
 (issue_date, target_date, f107_swpc).
@@ -27,7 +27,7 @@ try:
 except ImportError:  # older wheels
     import fitz
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "shared"))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "model"))
 import common
 
 MONTHS = {m: i + 1 for i, m in enumerate(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])}

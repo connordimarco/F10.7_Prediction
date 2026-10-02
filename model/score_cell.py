@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Fixed scorecard — NEVER edited per cell (LAUREN rule).
 
-Usage: score_cell.py <cell_dir>
+Usage: score_cell.py <model_dir>   (e.g. model)
 
 Reads <cell>/out/predictions.csv, scores OBSERVED F10.7 on the canonical test
 origins, writes <cell>/out/scorecard.json.

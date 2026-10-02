@@ -2,7 +2,7 @@
 """RMSE vs days ahead: our forecast vs SWPC's operational 27-day outlook on
 the matched set (origin = issue date - 1, same target days).
 
-Usage: plot_swpc_by_lead.py <cell_dir> [--ens <ensemble_cell>]
+Usage: plot_swpc_by_lead.py <model_dir> [--ens <ensemble_cell>]
 Reads data/swpc_prf/swpc_27day.csv (from swpc_27day.py). Writes
 plots/swpc_vs_ours_by_lead.png and prints the per-lead table.
 """
@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, "..", "shared"))
+sys.path.insert(0, os.path.join(HERE, "..", "model"))
 import common
 
 cell = sys.argv[1]
@@ -100,6 +100,6 @@ ax2.set_title("Improvement over the SWPC outlook", loc="left")
 ax2.legend(fontsize=8, labelcolor=INK2, loc="upper right")
 fig.text(0.01, 0.01, "Both forecasts know data through the day before the SWPC issue date; SWPC's day-1 value is its issue-day entry.",
          fontsize=7.5, color=MUTED)
-out = os.path.join(HERE, "..", "plots", "swpc_vs_ours_by_lead.png")
+out = os.path.join(HERE, "swpc_vs_ours_by_lead.png")
 fig.savefig(out, bbox_inches="tight")
 print("wrote", os.path.normpath(out))
