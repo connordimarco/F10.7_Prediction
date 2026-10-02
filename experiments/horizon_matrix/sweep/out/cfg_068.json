@@ -1,0 +1,19 @@
+{
+ "idx": 68,
+ "config": {
+  "learning_rate": 0.0214,
+  "num_leaves": 31,
+  "min_child_samples": 20,
+  "feature_fraction": 0.576,
+  "bagging_fraction": 0.715,
+  "lambda_l1": 0.1142,
+  "lambda_l2": 0.0
+ },
+ "n": 730,
+ "val_rmse": 23.310569658731847,
+ "val_rmse_L1_7": 17.460001843390568,
+ "val_rmse_L8_14": 23.077139121672303,
+ "val_rmse_L15_30": 25.543636234823918,
+ "val_rmse_hi": 30.16551863180849,
+ "median_best_iter": 184
+}

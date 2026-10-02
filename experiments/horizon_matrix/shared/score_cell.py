@@ -76,6 +76,7 @@ def main(cell_dir):
     hi = pred[pred.y >= 150]
     card = {
         "cell": os.path.basename(cell_dir),
+        "data_version": common.DATA_VERSION,
         "n_origins": int(len(orig)),
         "test_span": [str(orig[0].date()), str(orig[-1].date())],
         "pooled": band(1, common.HORIZON),

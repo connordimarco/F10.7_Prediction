@@ -1,0 +1,23 @@
+#PBS -N f107_sweep
+#PBS -l select=1:ncpus=512:model=tur_ath
+#PBS -l walltime=07:00:00
+#PBS -q normal
+#PBS -W group_list=s3007
+#PBS -j oe
+#PBS -o /nobackupp28/cdimarco/F10.7_Prediction/experiments/horizon_matrix/logs/
+#PBS -m be
+#PBS -M cdimarco@umich.edu
+# Hyperparameter sweep runner: START/COUNT configs, 8 concurrent x 32 threads
+# (measured 2026-08-17: ~30+ min/config on tur_ath — low-lr configs grow many
+# more trees than the standard cell; the first 3:30 submission finished 2/96).
+# Submit from horizon_matrix:
+#   qsub -v START=0,COUNT=16 -N sweep0 sweep/run_sweep.pbs
+# Idempotent (train_sweep.py skips finished configs) — resubmit on walltime.
+set -u
+cd /nobackupp28/cdimarco/F10.7_Prediction/experiments/horizon_matrix
+export OMP_NUM_THREADS=32
+export OPENBLAS_NUM_THREADS=32
+mkdir -p sweep/out
+seq "$START" "$((START + COUNT - 1))" | xargs -P 8 -I{} sh -c \
+    '../../env/bin/python sweep/train_sweep.py {} > sweep/out/run_{}.log 2>&1 || echo "cfg {} FAILED"'
+echo "sweep block $START..$((START + COUNT - 1)) done $(date)"

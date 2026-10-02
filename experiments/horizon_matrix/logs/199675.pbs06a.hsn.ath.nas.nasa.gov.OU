@@ -1,0 +1,30 @@
+Job 199675.pbs06a.hsn.ath.nas.nasa.gov started on Mon Aug 17 09:14:15 PDT 2026
+The job requested the following resources:
+    walltime = 03:30:00
+    ncpus = 512
+    place = scatter:excl
+
+PBS set the following environment variables:
+        FORT_BUFFERED = 1
+                   TZ = PST8PDT
+
+Current directory is /nobackupp28/cdimarco/F10.7_Prediction/experiments/horizon_matrix
+=>> PBS: job killed: walltime 12699 exceeded limit 12600
+running do_mom
+
+____________________________________________________________________
+Job Resource Usage Summary for 199675.pbs06a.hsn.ath.nas.nasa.gov
+
+   CPU Time Used            : 1766:32:48
+   Real Memory Used         : 2575544kb
+   Walltime Used            : 03:31:50
+   Exit Status              : -29
+
+   Number of CPUs requested : 512
+   Walltime Requested       : 03:30:00
+
+   Execution Queue          : normal
+   Charged To               : s3007
+
+   Job Stopped              : Mon Aug 17 12:46:07 2026
+____________________________________________________________________

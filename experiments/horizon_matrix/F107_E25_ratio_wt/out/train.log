@@ -1,0 +1,92 @@
+F107_E25_ratio_wt: flux=f107_adj_rob target=ratio_env span=train weights=env params={} | train (9347, 1560) val (730, 1560) test (882, 1560)
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead  1: best_iter 2698  val_rmse(target space) 0.0600  [36s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead  2: best_iter 2232  val_rmse(target space) 0.0804  [71s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead  3: best_iter 1591  val_rmse(target space) 0.0959  [98s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead  4: best_iter 1290  val_rmse(target space) 0.1102  [124s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead  5: best_iter  898  val_rmse(target space) 0.1233  [142s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead  6: best_iter  827  val_rmse(target space) 0.1334  [161s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead  7: best_iter  425  val_rmse(target space) 0.1417  [174s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead  8: best_iter  393  val_rmse(target space) 0.1494  [185s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead  9: best_iter  473  val_rmse(target space) 0.1550  [196s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 10: best_iter  265  val_rmse(target space) 0.1602  [205s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 11: best_iter  251  val_rmse(target space) 0.1631  [216s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 12: best_iter  416  val_rmse(target space) 0.1639  [232s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 13: best_iter  376  val_rmse(target space) 0.1645  [247s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 14: best_iter  579  val_rmse(target space) 0.1655  [261s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 15: best_iter  969  val_rmse(target space) 0.1663  [281s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 16: best_iter  447  val_rmse(target space) 0.1684  [293s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 17: best_iter  561  val_rmse(target space) 0.1681  [306s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 18: best_iter  106  val_rmse(target space) 0.1728  [311s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 19: best_iter   84  val_rmse(target space) 0.1740  [316s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 20: best_iter   86  val_rmse(target space) 0.1753  [320s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 21: best_iter   74  val_rmse(target space) 0.1763  [325s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 22: best_iter   73  val_rmse(target space) 0.1791  [331s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 23: best_iter   73  val_rmse(target space) 0.1801  [337s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 24: best_iter   70  val_rmse(target space) 0.1808  [344s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 25: best_iter   43  val_rmse(target space) 0.1826  [348s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 26: best_iter   62  val_rmse(target space) 0.1842  [352s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 27: best_iter   50  val_rmse(target space) 0.1864  [357s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 28: best_iter   47  val_rmse(target space) 0.1883  [361s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 29: best_iter   61  val_rmse(target space) 0.1900  [366s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead 30: best_iter   50  val_rmse(target space) 0.1917  [370s]
+wrote /Users/connor/Documents/F10.7_Prediction/experiments/horizon_matrix/F107_E25_ratio_wt/out/predictions.csv: 882 origins x 30 leads

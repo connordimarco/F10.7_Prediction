@@ -4,7 +4,16 @@
 One row per calendar day, 1996-01-01 -> last day with F10.7:
   f107_obs, f107_adj   Penticton via LISIRD (0.0 = missing -> NaN). Multiple
                        obs/day post-1990: the one nearest 20:00 UT (local noon)
-                       is taken, matching the canonical daily value.
+                       is taken, matching the canonical daily value (the one
+                       SWPC/CelesTrak publish, flare spikes included).
+  f107_obs_rob,        Flare-robust variants for TRAINING: on days whose
+  f107_adj_rob         readings disagree by >10% (max/min of the 17/20/23 UT
+                       values) the reading nearest the previous day's robust
+                       value is used (causal; flares go up, glitches go
+                       down); any remaining one-day spike >1.3x / dip <0.7x
+                       both neighbours is replaced by the neighbour mean.
+  f107_flare           1 on days where the robust value differs from the
+                       canonical one; f107_nread = readings that day.
   ssn                  SILSO daily total ISN v2 (-1 -> NaN).
   ar_*                 per-day aggregates of the SRS active-region table
                        (srs_parsed.csv). Days whose SRS file exists but lists
@@ -29,14 +38,43 @@ START = "1947-02-14"  # first LISIRD F10.7 day; ar_* stay NaN before 1996
 def load_f107():
     df = pd.read_csv(os.path.join(ROOT, "f107_penticton_lisird.csv"))
     df.columns = ["jd", "obs", "adj"]
-    # JD counts from noon UT: calendar date of the observation
-    df["date"] = pd.to_datetime(df["jd"] + 0.5, unit="D", origin="julian").dt.normalize()
-    df["frac"] = (df["jd"] + 0.5) % 1.0  # fraction of the UT day
-    df = df.replace({"obs": {0.0: np.nan}, "adj": {0.0: np.nan}})
-    # pick the observation closest to 20:00 UT (frac 0.8333)
-    df["dist"] = (df["frac"] - 20.0 / 24.0).abs()
-    df = df.sort_values(["date", "dist"]).groupby("date").first()
-    return df[["obs", "adj"]].rename(columns={"obs": "f107_obs", "adj": "f107_adj"})
+    # pandas' julian origin is JD 0 = noon, so the JD converts directly to UT
+    # (2026-09-02 fix: a former "+0.5" here dated every reading one day late).
+    df["t"] = pd.to_datetime(df["jd"], unit="D", origin="julian")
+    df["date"] = df["t"].dt.normalize()
+    df["hour"] = df["t"].dt.hour + df["t"].dt.minute / 60.0
+    df = df.replace({"obs": {0.0: np.nan}, "adj": {0.0: np.nan}}).dropna(subset=["obs"])
+    # canonical daily value: the observation closest to 20:00 UT (local noon)
+    df["dist"] = (df["hour"] - 20.0).abs()
+    noon = df.sort_values(["date", "dist"]).groupby("date").first()[["obs", "adj"]]
+    g = df.groupby("date")
+    out = noon.rename(columns={"obs": "f107_obs", "adj": "f107_adj"})
+    out["f107_nread"] = g.size()
+    spread = g["obs"].max() / g["obs"].min()
+    # flare/glitch day: the day's readings disagree by >10%. Flares push a
+    # reading UP, instrument glitches push one DOWN, so neither min nor
+    # median is safe; take the reading nearest the previous day's robust
+    # value (causal, so the realtime path can apply the same rule).
+    rob_obs = out["f107_obs"].copy()
+    rob_adj = out["f107_adj"].copy()
+    prev = np.nan
+    for day in out.index:
+        if spread.loc[day] > 1.10 and np.isfinite(prev):
+            r = df[df["date"] == day]
+            pick = r.iloc[(r["obs"] - prev).abs().argmin()]
+            rob_obs.loc[day], rob_adj.loc[day] = pick["obs"], pick["adj"]
+        prev = rob_obs.loc[day]
+    out["f107_obs_rob"], out["f107_adj_rob"] = rob_obs, rob_adj
+    # residual one-day spikes (>1.3x both neighbours) and dips (<0.7x both),
+    # mostly the single-reading era: replace by the neighbour mean
+    r = out["f107_obs_rob"]
+    prev_, next_ = r.shift(1), r.shift(-1)
+    bad = ((r > 1.3 * prev_) & (r > 1.3 * next_)) | ((r < 0.7 * prev_) & (r < 0.7 * next_))
+    ratio = out["f107_adj_rob"] / out["f107_obs_rob"]
+    out.loc[bad, "f107_obs_rob"] = ((prev_ + next_) / 2)[bad]
+    out.loc[bad, "f107_adj_rob"] = (out["f107_obs_rob"] * ratio)[bad]
+    out["f107_flare"] = (out["f107_obs_rob"] != out["f107_obs"]).astype(int)
+    return out[["f107_obs", "f107_adj", "f107_obs_rob", "f107_adj_rob", "f107_flare", "f107_nread"]]
 
 
 def load_ssn():
@@ -99,6 +137,10 @@ def main():
         filled = df[col].interpolate(limit=3, limit_area="inside")
         df[flag] = (df[col].isna() & filled.notna()).astype(int)
         df[col] = filled
+    for col in ("f107_obs_rob", "f107_adj_rob"):
+        df[col] = df[col].interpolate(limit=3, limit_area="inside")
+    df["f107_flare"] = df["f107_flare"].fillna(0).astype(int)
+    df["f107_nread"] = df["f107_nread"].fillna(0).astype(int)
 
     ar_cols = [c for c in df.columns if c.startswith("ar_")]
     present = srs_days_present()
@@ -115,6 +157,7 @@ def main():
     for col in ("f107_obs", "f107_adj", "ssn"):
         print(f"  {col}: {df[col].isna().sum()} NaN, {df[col.split('_')[0] + '_filled'].sum()} interpolated")
     print(f"  srs missing days (ffilled): {(df.srs_present == 0).sum()}")
+    print(f"  flare-robust: {int(df.f107_flare.sum())} days differ from the canonical noon value")
     jan = df[df.index.month == 1]
     print(f"  sanity: Jan mean obs/adj = {(jan.f107_obs / jan.f107_adj).mean():.4f} (expect ~1.03, perihelion)")
     print(f"  sanity: Jul mean obs/adj = {(df[df.index.month == 7].f107_obs / df[df.index.month == 7].f107_adj).mean():.4f} (expect ~0.97)")

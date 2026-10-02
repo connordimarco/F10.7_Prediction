@@ -26,6 +26,10 @@ DATA = os.path.normpath(os.path.join(HERE, "..", "..", "..", "data"))
 
 HIST = 60
 HORIZON = 30
+# Stamped into every scorecard; the leaderboard only pools cards from the
+# current data version. v1 (2026-08) dated every F10.7 reading one day late
+# (build_dataset.py JD bug) and had no flare-robust columns.
+DATA_VERSION = "v2-2026-09-02"
 FEATURE_COLS = [
     "f107_adj",
     "ssn",
@@ -50,6 +54,23 @@ SW_COLS = [
     "sw_Bz_min",
     "sw_Ux_min",
 ]
+FS_COLS = [  # far-side AR catalogs (NaN pre-2010 + map outages) — E10
+    "fs_n",
+    "fs_nnoaa",
+    "fs_area_sum",
+    "fs_area_max",
+    "fs_flux_sum",
+    "fs_flux_max",
+    "fs_flux_wsum",
+    "fs_str_sum",
+    "fs_ret7_flux",
+    "fs_ret14_flux",
+    "sard_n",
+    "sard_str_sum",
+    "sard_str_max",
+    "sard_eta_min",
+]
+PROXY_COLS = ["mgii"]  # plage proxy, NaN pre-1978-11 (build_proxy_daily.py) — E60
 SPLITS = {
     "train": ("1996-01-01", "2021-12-31"),
     "train47": ("1947-01-01", "2021-12-31"),  # full F10.7 record; ar_* NaN pre-1996
@@ -67,6 +88,14 @@ def load_daily():
     if os.path.exists(sw_path):
         sw = pd.read_csv(sw_path, index_col="date", parse_dates=True)
         df = df.join(sw[SW_COLS])
+    fs_path = os.path.join(DATA, "farside_daily.csv")
+    if os.path.exists(fs_path):
+        fs = pd.read_csv(fs_path, index_col="date", parse_dates=True)
+        df = df.join(fs[FS_COLS])
+    px_path = os.path.join(DATA, "proxy_daily.csv")
+    if os.path.exists(px_path):
+        px = pd.read_csv(px_path, index_col="date", parse_dates=True)
+        df = df.join(px[PROXY_COLS])
     return df
 
 
@@ -78,7 +107,7 @@ def sun_earth_distance_au(dates):
 
 
 def adj_to_obs(f_adj, dates):
-    return np.asarray(f_adj) / sun_earth_distance_au(dates) ** 2
+    return np.asarray(f_adj) / np.asarray(sun_earth_distance_au(dates)) ** 2  # broadcasts (n, H) / (H,)
 
 
 def _valid_origins(df, split, cols):
@@ -109,18 +138,31 @@ def origins(split, df=None, sw=False, required=None):
     return _valid_origins(df, split, cols)
 
 
-def build_samples(df, split, sw=False, required=None):
+def envelope(df, flux="f107_adj"):
+    """Trailing 81-day mean of the flux (the F10.7a envelope), known at t."""
+    return df[flux].rolling(81, min_periods=60).mean()
+
+
+def build_samples(df, split, sw=False, required=None, extra=None, flux="f107_adj"):
     """-> X (n, HIST*ncols), y_adj (n, HORIZON), origin dates, feature names.
 
-    X columns are (FEATURE_COLS [+ SW_COLS]) x lags 59..0 (oldest first);
-    y is t+1..t+30. `required` relaxes which columns gate origin validity
-    (see origins); X always carries the full column set.
+    X columns are (FEATURE_COLS [+ SW_COLS] [+ extra]) x lags 59..0 (oldest
+    first); y is t+1..t+30. `required` relaxes which columns gate origin
+    validity (see origins); X always carries the full column set. `extra`
+    columns are optional-NaN by construction: they join X but never gate
+    origin validity, so the canonical origin sets are unchanged. `flux`
+    picks the F10.7 series used for BOTH the flux feature block and the
+    target ("f107_adj" canonical noon value, or "f107_adj_rob" flare-robust);
+    origin validity is always gated on the canonical column, so the origin
+    sets are identical either way.
     """
     cols = FEATURE_COLS + SW_COLS if sw else FEATURE_COLS
+    cols = cols + list(extra) if extra else cols
     orig = origins(split, df, sw=sw, required=required)
     pos = df.index.get_indexer(orig)
+    cols = [flux if c == "f107_adj" else c for c in cols]
     vals = df[cols].to_numpy()
-    tgt = df["f107_adj"].to_numpy()
+    tgt = df[flux].to_numpy()
     X = np.stack([vals[p - HIST + 1 : p + 1].T.ravel() for p in pos])
     y = np.stack([tgt[p + 1 : p + 1 + HORIZON] for p in pos])
     names = [f"{c}_lag{lag}" for c in cols for lag in range(HIST - 1, -1, -1)]

@@ -1,0 +1,18 @@
+#PBS -N f107_e14
+#PBS -l select=1:ncpus=512:model=tur_ath
+#PBS -l walltime=03:00:00
+#PBS -q normal
+#PBS -W group_list=s3007
+#PBS -j oe
+#PBS -o /nobackupp28/cdimarco/F10.7_Prediction/experiments/horizon_matrix/logs/
+#PBS -m be
+#PBS -M cdimarco@umich.edu
+# E14 lead fan-out: LEADS="a b c ..." run 8 concurrent x 32 threads
+# (n_jobs pinned inside e14_lead.py). Submit from horizon_matrix:
+#   qsub -v LEADS="1 2 3 4 5 6 7 8" -N e14a F107_E14_calbounds/run_e15.pbs
+set -u
+cd /nobackupp28/cdimarco/F10.7_Prediction/experiments/horizon_matrix
+mkdir -p F107_E14_calbounds/out
+echo "$LEADS" | tr ' ' '\n' | xargs -P 8 -I{} sh -c \
+    '../../env/bin/python F107_E14_calbounds/e14_lead.py {} > F107_E14_calbounds/out/run_{}.log 2>&1 || echo "lead {} FAILED"'
+echo "E15 leads [$LEADS] done $(date)"

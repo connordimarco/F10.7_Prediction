@@ -1,0 +1,30 @@
+Job 200297.pbs06a.hsn.ath.nas.nasa.gov started on Mon Aug 17 20:02:19 PDT 2026
+The job requested the following resources:
+    walltime = 07:00:00
+    ncpus = 512
+    place = scatter:excl
+
+PBS set the following environment variables:
+        FORT_BUFFERED = 1
+                   TZ = PST8PDT
+
+Current directory is /nobackupp28/cdimarco/F10.7_Prediction/experiments/horizon_matrix
+sweep block 0..7 done Mon Aug 17 08:02:38 PM PDT 2026
+running do_mom
+
+____________________________________________________________________
+Job Resource Usage Summary for 200297.pbs06a.hsn.ath.nas.nasa.gov
+
+   CPU Time Used            : 00:01:09
+   Real Memory Used         : 377372kb
+   Walltime Used            : 00:00:17
+   Exit Status              : 0
+
+   Number of CPUs requested : 512
+   Walltime Requested       : 07:00:00
+
+   Execution Queue          : normal
+   Charged To               : s3007
+
+   Job Stopped              : Mon Aug 17 20:02:38 2026
+____________________________________________________________________

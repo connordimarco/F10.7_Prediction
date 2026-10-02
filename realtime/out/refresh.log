@@ -1,0 +1,94 @@
+== 2026-10-02 18:28:45 UTC refresh start
+fetching f107_penticton_lisird.csv
+fetching ssn_daily_silso.csv
+fetching srs/2026/20260813SRS.txt
+fetching srs/2026/20260814SRS.txt
+fetching srs/2026/20260815SRS.txt
+fetching srs/2026/20260816SRS.txt
+fetching srs/2026/20260817SRS.txt
+fetching srs/2026/20260818SRS.txt
+fetching srs/2026/20260819SRS.txt
+fetching srs/2026/20260820SRS.txt
+fetching srs/2026/20260821SRS.txt
+fetching srs/2026/20260822SRS.txt
+fetching srs/2026/20260824SRS.txt
+fetching srs/2026/20260825SRS.txt
+fetching srs/2026/20260826SRS.txt
+fetching srs/2026/20260827SRS.txt
+fetching srs/2026/20260828SRS.txt
+fetching srs/2026/20260829SRS.txt
+fetching srs/2026/20260830SRS.txt
+fetching srs/2026/20260831SRS.txt
+fetching srs/2026/20260901SRS.txt
+fetching srs/2026/20260902SRS.txt
+fetching srs/2026/20260903SRS.txt
+fetching srs/2026/20260904SRS.txt
+fetching srs/2026/20260905SRS.txt
+fetching srs/2026/20260906SRS.txt
+fetching srs/2026/20260907SRS.txt
+fetching srs/2026/20260908SRS.txt
+fetching srs/2026/20260909SRS.txt
+fetching srs/2026/20260910SRS.txt
+fetching srs/2026/20260911SRS.txt
+fetching srs/2026/20260912SRS.txt
+fetching srs/2026/20260913SRS.txt
+fetching srs/2026/20260914SRS.txt
+fetching srs/2026/20260915SRS.txt
+fetching srs/2026/20260916SRS.txt
+fetching srs/2026/20260917SRS.txt
+fetching srs/2026/20260918SRS.txt
+fetching srs/2026/20260919SRS.txt
+fetching srs/2026/20260920SRS.txt
+fetching srs/2026/20260921SRS.txt
+fetching srs/2026/20260922SRS.txt
+fetching srs/2026/20260923SRS.txt
+fetching srs/2026/20260924SRS.txt
+fetching srs/2026/20260925SRS.txt
+fetching srs/2026/20260926SRS.txt
+fetching srs/2026/20260927SRS.txt
+fetching srs/2026/20260928SRS.txt
+fetching srs/2026/20260929SRS.txt
+fetching srs/2026/20260930SRS.txt
+fetching srs/2026/20261001SRS.txt
+fetching srs/2026/20261002SRS.txt
+raw archives complete
+sard: 94 files to try
+sard complete: {'fetched': 93, '404': 1}
+f6x: 94 files to try (serial, ~0.0 h)
+f6x complete: {'fetched': 93, '404': 1}
+files: 11191 (1 empty)  rows: 74817  days with regions: 10141
+  section I: 46615 rows
+  section IA: 15905 rows
+  section II: 12297 rows
+warnings: 14
+  19981009SRS.txt: bad return lat '8355 IS WEAK.'
+  19981116SRS.txt: unparseable '8389'
+  20010331SRS.txt: unparseable '9409'
+  20031130SRS.txt: bad return lat '30 Millionths (instead of 300).'
+  20070713SRS.txt: unparseable '0964  N05W14'
+  20100228SRS.txt: unparseable '1045 N19'
+  20110213SRS.txt: unparseable '1160  N16E88'
+  20110725SRS.txt: unparseable '1260 N20E71   358  0010 Axx  01    Alpha'
+  20120306SRS.txt: unparseable '1430 N20E25   316  0090 Dao  05   14'
+  20120417SRS.txt: unparseable '1460 N15E40   107  0020 Cro  02   05'
+  20140904SRS.txt: unparseable '2155 S20E75   116  0090 Hax  02    Alpha'
+  20211027SRS.txt: unparseable '2891 N20E78   214  0280 Dso     04 Beta'
+  20241019SRS.txt: bad location '3855 N15W0*   076  0020\tCro  02\t  03 Beta'
+  20250105SRS.txt: unparseable '3939 S17W61   085  0090 Hsx  02    Alpha'
+/Users/connor/Documents/Work/F10.7_Prediction/scripts/../data/daily.csv: 29086 days 1947-02-14 -> 2026-10-02
+  f107_obs: 13 NaN, 642 interpolated
+  f107_adj: 13 NaN, 642 interpolated
+  ssn: 2 NaN, 0 interpolated
+  srs missing days (ffilled): 17896
+  flare-robust: 192 days differ from the canonical noon value
+  sanity: Jan mean obs/adj = 1.0329 (expect ~1.03, perihelion)
+  sanity: Jul mean obs/adj = 0.9684 (expect ~0.97)
+wrote /Users/connor/Documents/Work/F10.7_Prediction/data/farside_daily.csv: 6119 days
+  f6x: 6118 days with maps (100.0%), longest gap 1 d, mean regions/day 4.05
+  sard: 6003 days with maps (98.1%), longest gap 114 d, mean regions/day 1.70
+/Users/connor/Documents/Work/F10.7_Prediction/realtime/bridge_tail.py:36: Pandas4Warning: Timestamp.utcnow is deprecated and will be removed in a future version. Use Timestamp.now('UTC') instead.
+  today = pd.Timestamp.utcnow().normalize().tz_localize(None)
+ssn: last SILSO day 2026-09-30; bridged 2 days from EISN (2026-10-01, 2026-10-02)
+f107: LISIRD current, nothing to bridge
+daily.csv now 1947-02-14 -> 2026-10-02; last usable origin 2026-10-02
+== 2026-10-02 18:31:46 UTC refresh done

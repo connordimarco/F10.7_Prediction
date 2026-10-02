@@ -1,0 +1,6 @@
+F107_E24_ratio_deep: flux=f107_adj_rob target=ratio_env span=train47 weights=None params={} | train (26637, 1560) val (730, 1560) test (882, 1560)
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)
+lead  1: best_iter 2789  val_rmse(target space) 0.0516  [92s]
+/Users/connor/Documents/F10.7_Prediction/env/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.
+  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)

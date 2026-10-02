@@ -1,0 +1,18 @@
+F107_E41_mlp: kind=mlp span=train47 hidden=96 drop=0.2 | train (26637, 28, 60) val (730, 28, 60) test (882, 28, 60)
+  seed 1: best val RMSE(flux, adj) 20.95 at epoch 4
+  seed 2: best val RMSE(flux, adj) 21.02 at epoch 13
+  seed 3: best val RMSE(flux, adj) 21.10 at epoch 11
+  seed 4: best val RMSE(flux, adj) 21.13 at epoch 12
+  seed 5: best val RMSE(flux, adj) 21.03 at epoch 40
+wrote /nobackupp28/cdimarco/F10.7_Prediction/experiments/horizon_matrix/F107_E41_mlp/out/predictions.csv: 882 origins x 30 leads
+  seed 1: best val RMSE(flux, adj) 20.83 at epoch 17
+  seed 1: best val RMSE(flux, adj) 21.59 at epoch 15
+  seed 1: best val RMSE(flux, adj) 21.11 at epoch 21
+  seed 1: best val RMSE(flux, adj) 21.40 at epoch 4
+  seed 1: best val RMSE(flux, adj) 21.12 at epoch 18
+OOF written for 9347 train origins
+done in 146s
+F107_E41_mlp: pooled RMSE 30.27 MAE 22.85 r 0.672 skill +0.220  (n=882 origins)
+  L1_7   RMSE  25.28  skill +0.139
+  L8_14  RMSE  32.35  skill +0.295
+  L15_30 RMSE  31.31  skill +0.198
